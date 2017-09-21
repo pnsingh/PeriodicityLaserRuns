@@ -1,0 +1,9 @@
+psql -c "select runid, starttime, endtime, extract(epoch from(endtime-starttime))::int AS len, scope, tpc_events, round(cast (float8 (tpc_events/GREATEST(extract(epoch from(endtime-starttime))::int,0.0001)) as numeric),2) AS rate,od_events, open, comment from run.daqruns where runid > 15031 order by runid desc limit 100" 
+
+TO STDOUT  WITH CSV HEADER" -h ds50daq.lngs.infn.it darkside50 rea -o UAr_runs.csv
+
+
+
+
+
+psql -c "select runid, starttime, endtime, extract(epoch from(endtime-starttime))::int AS len, scope, tpc_events, round(cast (float8 (tpc_events/GREATEST(extract(epoch from(endtime-starttime))::int,0.0001)) as numeric),2) AS rate,od_events from run.daqruns where ((runid > 15031)  and (scope~~global)) order by runid desc" -h ds50daq.lngs.infn.it darkside50 rea -o UAr_runs.csv
